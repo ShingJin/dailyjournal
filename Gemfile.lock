@@ -140,7 +140,6 @@ DEPENDENCIES
   rails (= 4.0.2)
   sass-rails (~> 4.0.0)
   sdoc
-  sqlite3
   sqlite3-ruby
   turbolinks
   twitter-bootstrap-rails!
