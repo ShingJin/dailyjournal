@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dailyjournal</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+
+
+<div class="topbar">
+      <div class="fill">
+        <div class="top_container">
+          <a class="brand" href="/" style="text-decoration:none;font-family: 'Lobster', cursive;margin-left:450px;">
+Daily Journal</a>
+        
+
+      <ul class="nav secondary-nav">
+		<div id="user_nav">
+		  <% if current_user %>
+    		Logged in as <%= current_user.email %>
+    	 <%= link_to "Log out", log_out_path %>
+  		<% else %>
+    		<%= link_to "Sign up", sign_up_path %> or 
+    		<%= link_to "Log in", log_in_path %>
+  		<% end %>
+		</div>
+          
+       </ul>
+    </div>
+  </div>
+</div>
+
+
+<br>
+<br>
+
+<%= yield %>
+
+</body>
+</html>
