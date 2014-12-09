@@ -24,7 +24,6 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'jquery-rails'
 
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
