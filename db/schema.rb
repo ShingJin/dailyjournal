@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20141207005452) do
     t.string   "name"
     t.string   "site"
     t.string   "token"
+    t.string  "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
