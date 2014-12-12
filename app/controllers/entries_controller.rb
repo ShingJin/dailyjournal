@@ -38,6 +38,16 @@ class EntriesController < ApplicationController
     @entry.tags = params["tags"]
     @entry.cases = params["cases"]
     
+    if !@entry.contacts.nil?
+      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Party","subject-id"=>@entry.contacts.to_i)
+      n.save
+    end
+
+    if !@entry.cases.nil?
+      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Kase","subject-id"=>@entry.cases.to_i)
+      n.save
+    end
+
     respond_to do |format|
       if @entry.save
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
