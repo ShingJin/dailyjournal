@@ -18,6 +18,9 @@ ActiveRecord::Schema.define(version: 20141207005452) do
 
   create_table "entries", force: true do |t|
     t.text     "entry_text"
+    t.string "contacts"
+    t.string "tags"
+    t.string "cases"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
