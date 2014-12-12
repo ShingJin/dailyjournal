@@ -26,6 +26,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'rails_12factor'
 
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
