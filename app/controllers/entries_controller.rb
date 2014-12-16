@@ -5,13 +5,25 @@ class EntriesController < ApplicationController
   # GET /entries.json
   def index
     @tasks = Highrise::Task.find(:all)
-    @entries = Entry.all
+    @entries = Entry.search(params[:search])
+    @entries_csv = Entry.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @entries_csv.to_csv }
+    end
+
+
   end
 
   # GET /entries/1
   # GET /entries/1.json
   def show
   end
+
+  def export
+
+  end
+
 
   # GET /entries/new
   def new
@@ -34,17 +46,17 @@ class EntriesController < ApplicationController
   # POST /entries.json
   def create
     @entry = Entry.new(entry_params)
-    @entry.contacts = params["contacts"]
+    @entry.contact = params["contact"]
     @entry.tags = params["tags"]
-    @entry.cases = params["cases"]
+    @entry.case = params["case"]
     
-    if !@entry.contacts.nil?
-      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Party","subject-id"=>@entry.contacts.to_i)
+    if !@entry.contact.nil?
+      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Party","subject-id"=>@entry.contact.to_i)
       n.save
     end
 
-    if !@entry.cases.nil?
-      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Kase","subject-id"=>@entry.cases.to_i)
+    if !@entry.case.nil?
+      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Kase","subject-id"=>@entry.case.to_i)
       n.save
     end
 

@@ -223,4 +223,42 @@ body {
 }
 
 
+.sidebar{
+  float:left;
+  position:relative;
+  width: 15%;
+  height:217px;
+  top:0px;
+  display:block;
+}
+
+.sidebar ul{
+  list-style: none;
+}
+
+.sidebar ul li{
+  color:rgb(85, 85, 85);
+
+}
+
+
+.main{
+  width: 85%;
+  padding-top:0px;
+  border-radius: 7px 7px 7px 7px;
+  border: 1px solid rgb(217, 217, 217);
+  display:block;
+  margin-left:15%;
+}
+
+.main table{
+    padding-left:50px;
+}
+
+.page-header{
+  padding: 10px 0px 15px 0px;
+  top:0px;
+  font-size: 17px;
+  border-bottom:none;
+}
 

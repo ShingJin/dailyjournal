@@ -5,41 +5,59 @@
             :class => 'btn btn-primary' %>
 -->
 <div class="row">
-<form class="navbar-form navbar-left" role="search">
+
+<form class="navbar-form navbar-left" role="search" action="/search">
   <div class="form-group">
-    <input type="text" class="form-control" placeholder="Search">
+    <input type="text" class="form-control" placeholder="Search" name="search">
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-default">Search</button>
 </form>
 </div>
 
-            <div class="row">
 
 
 
-  <div class="col-md-9 col-md-push-3">
+
+
+
+
+<div class="sidebar">
+<ul>
+  <li>
+    <%= link_to "Welcome", "/" %>
+  </li>
+  <li>
+    <%= link_to "Entries", "/entries" %>
+  </li>
+</ul>
 </div>
-  <div class="col-md-3 col-md-pull-9 sidebar-nav">Entries</div>
+<div class="main">
+<p class="page-header">Getting started</p>
 
 
-</div>
+<%= button_to 'New Entry', new_entry_path %>
+
 
 <table>
 <tbody>
 <% for e in @entries %>
   <tr>
     <td>
-    <%= e.entry_text %>
+    <%= link_to e.entry_text, edit_entry_path(e) %>
+    <br>
+    Last updated on <%= e.updated_at.to_date %>
     </td>
-    <td>
-    <%= link_to 'Edit', edit_entry_path(e) %>
-    </td>
+
   </tr>
 <% end %>
 </tbody>
 </table>
 
-<%= link_to 'New Entry', new_entry_path %>
+
+
+
+
+</div>
 <br>
 
 
