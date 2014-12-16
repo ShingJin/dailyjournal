@@ -5,8 +5,8 @@ class EntriesController < ApplicationController
   # GET /entries.json
   def index
     @tasks = Highrise::Task.find(:all)
-    @entries = Entry.search(params[:search])
-    @entries_csv = Entry.all
+    @entries = current_user.entries.search(params[:search])
+    @entries_csv = current_user.entries.all
     respond_to do |format|
       format.html
       format.csv { render text: @entries_csv.to_csv }
@@ -27,7 +27,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    @entry = current_user.entries.new
     @contacts = Highrise::Person.find(:all)
     @cases = Highrise::Kase.find(:all)
     @tags = Highrise::Tag.find(:all)
@@ -45,7 +45,7 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    @entry = Entry.new(entry_params)
+    @entry = current_user.entries.new(entry_params)
     @entry.contact = params["contact"]
     @entry.tags = params["tags"]
     @entry.case = params["case"]
@@ -62,10 +62,10 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
+        format.html { redirect_to '/entries', notice: 'Entry was successfully created.' }
         format.json { render action: 'show', status: :created, location: @entry }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to '/entries/new' }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end

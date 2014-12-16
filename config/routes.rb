@@ -5,8 +5,15 @@ Dailyjournal::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "search" => "entries#index"
   resources :users
-  resources :entries
+  
+  resources :entries do
+    member do
+      post 'new'
+    end
+  end
   resources :sessions
+
+
 
 
   root 'users#new'
