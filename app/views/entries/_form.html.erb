@@ -109,6 +109,20 @@ $('#case_first_list').dblclick(function(){
 
 
     </script>
+<div class="sidebar">
+<ul>
+  <li>
+    <%= link_to "Welcome", "/" %>
+  </li>
+  <li>
+    <%= link_to "Entries", "/entries" %>
+  </li>
+</ul>
+</div>
+
+
+<div class="main">
+<p class="page-header">Edit</p>
 
 
 <%= form_for @entry, :html => { :class => "form-horizontal entry" } do |f| %>
@@ -128,10 +142,14 @@ $('#case_first_list').dblclick(function(){
     </div>
   <% end %>
 
+
+
+
+
   <div class="form-group">
     <%= f.label :entry_text, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :entry_text, :class => 'form-control' %>
+      <%= f.text_area :entry_text, :class => 'form-control',:size => "30x10" %>
     </div>
   </div>
 
@@ -200,3 +218,5 @@ $('#case_first_list').dblclick(function(){
   </div>
 
 <% end %>
+
+</div>
