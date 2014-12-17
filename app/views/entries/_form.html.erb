@@ -160,11 +160,16 @@ $('#case_first_list').dblclick(function(){
 
    <select id="case_first_list" multiple="multiple">
     <% for c in @cases %>
-      <option selected="selected" value=<%= c.id %>><%= c.name %>
+      <option value=<%= c.id %>><%= c.name %>
       </option> 
     <% end %>
   </select>
-  <select id="case_second_list" multiple="multiple" name="case" style="width:35px;">
+  <select id="case_second_list" multiple="multiple" name="case" style="width:100px;">
+    <%if !@case.nil? %>
+      <option value=<%= @case.attributes["id"] %>>
+        <%= @case.attributes["name"] %>
+      </option>
+    <% end %>
   </select>
 
 </div>
@@ -178,11 +183,14 @@ $('#case_first_list').dblclick(function(){
 
    <select id="contact_first_list" multiple="multiple">
     <% for c in @contacts %>
-      <option selected="selected" value=<%= c.id %>><%= c.name %>
+      <option value=<%= c.id %>><%= c.name %>
       </option> 
     <% end %>
   </select>
-   <select id="contact_second_list" multiple="multiple" name="contact" style="width:70px;">
+   <select id="contact_second_list" multiple="multiple" name="contact" style="width:100px;">
+    <% if !@contact.nil? %>
+      <option value=<%= @contact.attributes["id"] %>><%= @contact.attributes["first_name"] + " " + @contact.attributes["last_name"] %></option>
+    <% end %>
   </select>
 </div>
   </div>
@@ -194,14 +202,17 @@ $('#case_first_list').dblclick(function(){
 
    <select id="tag_first_list" multiple="multiple">
     <% for t in @tags %>
-      <option selected="selected" value=<%= t.id %>><%= t.name %>
+      <option value=<%= t.id %>><%= t.name %>
       </option> 
     <% end %>
   </select>
 
-     <select id="tag_second_list" multiple="multiple" name="tags" style="width:85px;">
+     <select id="tag_second_list" multiple="multiple" name="tags" style="width:100px;">
+        <% for t in @entry.tag_list %>
+            <option selected="selected" value=<%= t %>><%=  Highrise::Tag.find(:all).find(:id=>t.to_i).first.name
+ %>
+        <% end %>
     </select>
-
 
 
 </div>
@@ -220,3 +231,6 @@ $('#case_first_list').dblclick(function(){
 <% end %>
 
 </div>
+
+
+

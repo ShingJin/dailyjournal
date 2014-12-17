@@ -6,10 +6,11 @@ class EntriesController < ApplicationController
   def index
     @tasks = Highrise::Task.find(:all)
     @entries = current_user.entries.search(params[:search])
-    @entries_csv = current_user.entries.all
+    @entries_csv = current_user.entries
     respond_to do |format|
       format.html
-      format.csv { render text: @entries_csv.to_csv }
+      format.csv { send_data @entries_csv.to_csv }
+      format.rss { render :layout => false }
     end
 
 
@@ -40,6 +41,15 @@ class EntriesController < ApplicationController
     @contacts = Highrise::Person.find(:all)
     @cases = Highrise::Kase.find(:all)
     @tags = Highrise::Tag.find(:all)
+    @entry = Entry.find(params[:id])
+    if !@entry.contact.nil?
+      @contact = Highrise::Person.where("id"=>@entry.contact.to_i).first
+    end
+    if !@entry.case.nil?
+      @case = Highrise::Kase.where("id"=>@entry.case.to_i).first
+    end
+    
+
   end
 
   # POST /entries
@@ -47,7 +57,15 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.new(entry_params)
     @entry.contact = params["contact"]
-    @entry.tags = params["tags"]
+  
+    if !params["tags"].kind_of?(String)
+      for t in params["tags"]  
+        @entry.tag_list << Highrise::Tag.find(:all).find(:id=>t.to_i).first.name   
+      end
+    else
+      @entry.tag_list << Highrise::Tag.find(:all).find(:id=>params["tags"].to_i).first.name
+    end
+
     @entry.case = params["case"]
     
     if !@entry.contact.nil?
@@ -74,12 +92,31 @@ class EntriesController < ApplicationController
   # PATCH/PUT /entries/1
   # PATCH/PUT /entries/1.json
   def update
+    @entry.contact = params["contact"]
+    @entry.tag_list=[]
+    if !params["tags"].kind_of?(String)
+      for t in params["tags"]  
+        @entry.tag_list << Highrise::Tag.find(:all).find(:id=>t.to_i).first.name   
+      end
+    else
+      @entry.tag_list  << Highrise::Tag.find(:all).find(:id=>params["tags"].to_i).first.name
+    end
 
+    @entry.case = params["case"]
+    
+    if !@entry.contact.nil?
+      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Party","subject-id"=>@entry.contact.to_i)
+      n.save
+    end
 
+    if !@entry.case.nil?
+      n = Highrise::Note.new(:body=>@entry.entry_text,"subject-type"=>"Kase","subject-id"=>@entry.case.to_i)
+      n.save
+    end
 
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
+        format.html { redirect_to '/entries', notice: 'Entry was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

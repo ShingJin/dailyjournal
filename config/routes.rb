@@ -6,11 +6,7 @@ Dailyjournal::Application.routes.draw do
   get "search" => "entries#index"
   resources :users
   
-  resources :entries do
-    member do
-      post 'new'
-    end
-  end
+  resources :entries
   resources :sessions
 
 

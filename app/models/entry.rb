@@ -1,5 +1,7 @@
 class Entry < ActiveRecord::Base
-	  belongs_to :user
+
+	acts_as_taggable
+	 belongs_to :user
 
 
 
@@ -14,14 +16,22 @@ class Entry < ActiveRecord::Base
       end
     end
   end
-  
+
   def self.search(search)
 		if search
+		   if search.include?("@")
+		   	search["@"]=""
+		   	search=search.split(",")
+		   	Entry.tagged_with(search,:any=>true)
+		   else
 		    find(:all, :conditions => ['entry_text LIKE ?', "%#{search}%"])
+		   end
 		else
 		    find(:all)
 		end
 	end
+
+
 
 
 
