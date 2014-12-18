@@ -6,9 +6,12 @@ Dailyjournal::Application.routes.draw do
   get "search" => "entries#index"
   resources :users
   
-  resources :entries
-  resources :sessions
+  resources :entries do
+    collection { post :import }
+  end
 
+  resources :sessions
+  resources :friendships
 
 
 

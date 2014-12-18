@@ -57,8 +57,9 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.new(entry_params)
     @entry.contact = params["contact"]
-  
-    if !params["tags"].kind_of?(String)
+    @entry.visibility = params["visibility"]
+ 
+    if !params["tags"].kind_of?(String)&& !params["tags"].nil?
       for t in params["tags"]  
         @entry.tag_list << Highrise::Tag.find(:all).find(:id=>t.to_i).first.name   
       end
@@ -94,7 +95,10 @@ class EntriesController < ApplicationController
   def update
     @entry.contact = params["contact"]
     @entry.tag_list=[]
-    if !params["tags"].kind_of?(String)
+    @entry.visibility = params["visibility"]
+
+
+    if !params["tags"].kind_of?(String) && !params["tags"].nil?
       for t in params["tags"]  
         @entry.tag_list << Highrise::Tag.find(:all).find(:id=>t.to_i).first.name   
       end
@@ -133,6 +137,11 @@ class EntriesController < ApplicationController
       format.html { redirect_to entries_url }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    Entry.import(params[:file])
+    redirect_to root_url, notice: "Products imported."
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217022253) do
+ActiveRecord::Schema.define(version: 20141217102346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,17 @@ ActiveRecord::Schema.define(version: 20141217022253) do
     t.string   "contact"
     t.string   "tags",       array: true
     t.string   "case"
+    t.boolean  "visibility"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "friendships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "homes", force: true do |t|
@@ -115,6 +123,7 @@ ActiveRecord::Schema.define(version: 20141217022253) do
     t.string   "site"
     t.string   "token"
     t.string   "email"
+    t.string   "visible_names", array: true
     t.string   "auth_token"
     t.string   "password_salt"
     t.string   "password_hash"

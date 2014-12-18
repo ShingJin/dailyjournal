@@ -262,3 +262,8 @@ body {
   border-bottom:none;
 }
 
+
+
+select#visibility option{
+  width:150px;
+}

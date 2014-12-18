@@ -11,7 +11,6 @@ gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
-
 gem 'acts-as-taggable-on', '~> 3.4'
 
 gem "kaminari"

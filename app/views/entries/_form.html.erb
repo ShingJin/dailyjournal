@@ -109,18 +109,9 @@ $('#case_first_list').dblclick(function(){
 
 
     </script>
-<div class="sidebar">
-<ul>
-  <li>
-    <%= link_to "Welcome", "/" %>
-  </li>
-  <li>
-    <%= link_to "Entries", "/entries" %>
-  </li>
-</ul>
-</div>
 
 
+<%= render template: "/layouts/sidebar" %>
 <div class="main">
 <p class="page-header">Edit</p>
 
@@ -158,7 +149,7 @@ $('#case_first_list').dblclick(function(){
  <%= f.label :cases, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
 
-   <select id="case_first_list" multiple="multiple">
+   <select id="case_first_list" multiple="multiple" style="width:100px;">
     <% for c in @cases %>
       <option value=<%= c.id %>><%= c.name %>
       </option> 
@@ -181,7 +172,7 @@ $('#case_first_list').dblclick(function(){
  <%= f.label :contacts, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
 
-   <select id="contact_first_list" multiple="multiple">
+   <select id="contact_first_list" multiple="multiple" style="width:100px;">
     <% for c in @contacts %>
       <option value=<%= c.id %>><%= c.name %>
       </option> 
@@ -200,7 +191,7 @@ $('#case_first_list').dblclick(function(){
  <%= f.label :tags, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
 
-   <select id="tag_first_list" multiple="multiple">
+   <select id="tag_first_list" multiple="multiple" style="width:100px;">
     <% for t in @tags %>
       <option value=<%= t.id %>><%= t.name %>
       </option> 
@@ -217,9 +208,23 @@ $('#case_first_list').dblclick(function(){
 
 </div>
   </div>
+ <div class="form-group">
 
+ <%= f.label :visibility, :class => 'control-label col-lg-2' %>
+  <div class="col-lg-10">
+    <select id="visibility" name="visibility">
+      
+      <% if @entry.visibility==true %>
+        <option value="true">Everyone in my group</option>
+        <option value="false">Me</option>
+      <% else %>
+        <option value="false">Me</option>
+        <option value="true">Everyone in my group</option>
+      <% end %>
 
-
+    </select>
+  </div>
+</div>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
@@ -227,6 +232,7 @@ $('#case_first_list').dblclick(function(){
                 entries_path, :class => 'btn btn-default' %>
     </div>
   </div>
+
 
 <% end %>
 
