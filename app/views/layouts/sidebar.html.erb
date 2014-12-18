@@ -4,7 +4,7 @@
     <%= link_to "Entries", "/entries" %>
   </li>
   <li>
-    <%= link_to "Public profile", @user %>
+    <%= link_to "Public profile", "/users/#{current_user.id}" %>
   </li>
   <li>
       <%= link_to "Friends","/users" %>
