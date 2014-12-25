@@ -5,7 +5,7 @@ class EntriesController < ApplicationController
   # GET /entries.json
   def index
     @tasks = Highrise::Task.find(:all)
-    @entries = current_user.entries.search(params[:search])
+    @entries = current_user.entries.order('created_at').search(params[:search])
     @entries_csv = current_user.entries
     respond_to do |format|
       format.html

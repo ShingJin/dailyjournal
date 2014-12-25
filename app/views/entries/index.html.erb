@@ -1,3 +1,4 @@
+<h3 class="header-title">Daily Journal</h3>
 
 <!-- 
 <%= link_to t('.new', :default => t("helpers.links.new")),
@@ -5,7 +6,9 @@
             :class => 'btn btn-primary' %>
 -->
 <div class="row">
-
+<form class="navbar-form navbar-left" action="/entries/new" style="float:left;margin-left: 190px;padding-right:0px;">
+    <button type="submit" class="btn btn-default">New Entry</button>
+</form>
 <form class="navbar-form navbar-left" role="search" action="/search">
   <div class="form-group">
     <input type="text" class="form-control" placeholder="Search" name="search">
@@ -28,7 +31,6 @@
 <p class="page-header">Getting started</p>
 
 
-<%= link_to 'New Entry', '/entries/new' %>
 <%= link_to 'Export CSV', '/entries.csv' %>
 <%= link_to 'RSS', '/entries.rss' %>
 

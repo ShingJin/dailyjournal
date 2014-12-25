@@ -12,7 +12,7 @@ class Entry < ActiveRecord::Base
       csv << column_names
       all.each do |entry|
       	name = Highrise::Person.where("id"=>entry.attributes["contact"]).first.attributes["first_name"] + " " + Highrise::Person.where("id"=>entry.attributes["contact"]).first.attributes["last_name"]
-		csv << [entry.attributes["id"].to_s,entry.attributes["entry_text"],name,entry.attributes["tags"].to_s,Highrise::Kase.where("id"=>entry.attributes["case"]).first.attributes["name"],entry.attributes["created_at"].to_s,entry.attributes["updated_at"].to_s]
+		csv << [entry.attributes["id"].to_s,entry.attributes["entry_text"],name,entry.attributes["tags"][0].to_s,Highrise::Kase.where("id"=>entry.attributes["case"]).first.attributes["name"],entry.attributes["created_at"].to_s,entry.attributes["updated_at"].to_s]
       end
     end
   end
