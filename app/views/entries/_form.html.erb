@@ -199,8 +199,8 @@ $('#case_first_list').dblclick(function(){
   </select>
 
      <select id="tag_second_list" multiple="multiple" name="tags" style="width:100px;">
-        <% for t in @entry.tag_list %>
-            <option selected="selected" value=<%= t %>><%=  Highrise::Tag.find(:all).find(:id=>t.to_i).first.name
+        <% for t in @entry.tags %>
+            <option selected="selected" value=<%= t.name %>><%=  Highrise::Tag.find(:all).find(:id=>t.name.to_i).first.name
  %>
         <% end %>
     </select>

@@ -61,10 +61,10 @@ class EntriesController < ApplicationController
  
     if !params["tags"].kind_of?(String)&& !params["tags"].nil?
       for t in params["tags"]  
-        @entry.tag_list << Highrise::Tag.find(:all).find(:id=>t.to_i).first.name   
+        @entry.tag_list << t 
       end
     else
-      @entry.tag_list << Highrise::Tag.find(:all).find(:id=>params["tags"].to_i).first.name
+      @entry.tag_list << params["tags"]
     end
 
     @entry.case = params["case"]
@@ -100,10 +100,10 @@ class EntriesController < ApplicationController
 
     if !params["tags"].kind_of?(String) && !params["tags"].nil?
       for t in params["tags"]  
-        @entry.tag_list << Highrise::Tag.find(:all).find(:id=>t.to_i).first.name   
+        @entry.tag_list << t
       end
     else
-      @entry.tag_list  << Highrise::Tag.find(:all).find(:id=>params["tags"].to_i).first.name
+      @entry.tag_list  << params["tags"]
     end
 
     @entry.case = params["case"]
